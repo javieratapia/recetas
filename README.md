@@ -1,4 +1,7 @@
-# recetario
+# El Recetario Maestro
+
+Web dedicada a la obtención de recetas de cocina para preparar algo diferente todos los días, pensada para personas quienes les gusta experimentar en sus platos. Esta cuenta con un panel de búsquedas por ingrediente, además de un login para guardar recetas favoritas.
+
 
 ## Project setup
 ```
