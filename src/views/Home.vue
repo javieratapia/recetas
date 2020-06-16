@@ -71,7 +71,7 @@
                   Some quick example text to build on the card title and make up the bulk of the card's content.
                 </b-card-text>
 
-                <b-button href="#" variant="primary">Go somewhere</b-button>
+                <b-button href="#" variant="primary" @click="recetas('tomato')">Go somewhere</b-button>
               </b-card>          
             </b-col>
       </b-row>
@@ -87,6 +87,10 @@
 
 export default {
   name: 'Home',
-
+  methods: {
+    recetas(algo){
+      this.$store.dispatch('ejecutar',algo)
+    }
+  },
 }
 </script>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
+import {user,key} from '../config/accesoApi'
 
 
 Vue.use(Vuex)
@@ -10,7 +11,12 @@ export default new Vuex.Store({
 
       correo:'',
       clave:'',
-      visible:true
+      visible:true,
+      busqueda:'tomato',
+      datos:[]
+      // {nombre:'',
+      // ingredientes:[],
+      // imagen:''}
 
   },
   getters: {
@@ -34,9 +40,37 @@ export default new Vuex.Store({
         state.visible=true    
         router.push('/login')
       })
+    },
+    traerRecetas(state,busqueda){
+      fetch(`https://api.edamam.com/search?q=${busqueda}&app_id=${user}&app_key=${key}`).then(res=>{
+        return res.json()
+      }).then(data=>{
+        let aux=[]
+        let info=data.hits
+        console.log("info")
+        console.log(info)
+        info.forEach(element => {
+          console.log(element)
+         aux.push({     
+            nombre:element.recipe.label,
+            ingredientes:element.recipe.ingredientLines,
+            imagen:element.recipe.image
+            
+             })
+            
+           //this.state.datos.push(receta)
+        });
+        console.log(aux)
+        state.datos=aux
+        console.log(state.datos)
+      })
     }
+    
   },
   actions: {
+    ejecutar:({commit})=>{
+      commit('traerRecetas')
+    }
 
 
   },
