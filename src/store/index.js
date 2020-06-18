@@ -44,21 +44,9 @@ export default new Vuex.Store({
              .catch(err=>{
                console.log(err)
              })
-        
-        
-        //localStorage.setItem=user.uid
-        
-
     },
 
-/*     traerUser(state){
-        firebase.auth().onAuthStateChanged(function(user){
-          if(user){
-            console.log(user.id)
-           state.usuarioID=user.uid
-          }
-      })
-    }, */
+
     logout(state){
       firebase.auth().signOut().then(()=>{
         state.correo=''
@@ -75,12 +63,8 @@ export default new Vuex.Store({
     },
 
      escribiendoFav(state,valor){
-      
-/*       firebase.auth().onAuthStateChanged(function(user){
-        if(user){
-         state.usuarioID=user.uid */
          state.datos.find(element=>{
-          if(valor==element.recipe.uri){
+          if(valor==element.recipe.label){
             let receta ={
               nombre: element.recipe.label,
               ingredientes: element.recipe.ingredientLines,
@@ -88,16 +72,17 @@ export default new Vuex.Store({
               uri: element.recipe.uri
             }
             db.collection(state.usuarioID).doc(receta.nombre).set(receta)
-          /* }
-        }) */
+          }
+        })
+      },
 
-        }else{
-          console.error("No hay usuario")
-        }
-      })
-        
-
-    } 
+    eliminandoFav(state,valor){
+      db.collection(state.usuarioID).doc(valor).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    }
 
     
   },
@@ -110,6 +95,9 @@ export default new Vuex.Store({
 
     enviarFavorito(context,info){
       context.commit('escribiendoFav',info)
+    },
+    eliminarFavorito(context,info){
+      context.commit('eliminandoFav',info)
     }
 
   }

@@ -3,15 +3,6 @@
 
     <b-container class="bv-example-row" fluid>
         <b-row align-h="center">  
-
-<!--           <b-col cols="2" class="text-left">
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">...</b-button>
-            </b-nav-form>
-          </b-col>
-
-        <b-col> -->
           <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="3" align-h="center"> 
             <b-col v-for="(item,index) in listaFav" :key="index">
               <b-card
@@ -23,8 +14,9 @@
                 style="max-width: 20rem;"
                 class="mb-2">
 
-                <!-- <b-button href="#" :variant="color" @click="marcar(item.recipe.uri)">{{index}}</b-button> -->
+               
                 <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ver Ingredientes</b-button>
+                 <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>
               </b-card>
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.nombre" :id="item.nombre" >
@@ -54,22 +46,31 @@ import store from '../store/index'
         },
         
         mounted() {
-          
           db.collection(store.getters.traeUsuario).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-
-        let aux={
+            let aux={
                 nombre:doc.data().nombre,
                 imagen: doc.data().imagen,
                 ingredientes: doc.data().ingredientes
-              }
-              this.listaFav.push(aux)
+                }
+              this.listaFav.push(aux)            
+            })
+          });       
+        },
+
+        methods:{
+          desmarcar(algo){
+            this.listaFav.map((element,ind)=>{
+              if(element.nombre==algo){
+                this.listaFav.splice(ind,1)
+                return store.dispatch('eliminarFavorito',algo)
+              }else{
+                console.error("no encontrado")
+              } 
+            })
             
-        })
-    });
-              
-        
-    }
+          }
+        }
     }
 </script>
 

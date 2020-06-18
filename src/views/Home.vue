@@ -37,8 +37,9 @@
 <!--                 <b-card-text v-for="(variable,index) in item.recipe.ingredientLines" :key="index">
                   {{variable}}
                 </b-card-text> -->
-                <b-button href="#" :variant="color" @click="marcar(item.recipe.uri)">{{index}}</b-button>
-                <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" >Ver Ingredientes</b-button>
+                <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" class="mx-2">Ingredientes</b-button>
+                <b-button href="#" :variant="color" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
+                
               </b-card>
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.recipe.label" :id="item.recipe.uri" >
@@ -61,7 +62,7 @@
 
 <script>
 
-
+import store from '../store/index'
 export default {
   name: 'Home',
   data(){
@@ -72,24 +73,19 @@ export default {
   },
   computed: {
     recetas(){
-      return this.$store.getters.listaRecetas
+      return store.getters.listaRecetas
     },
 
   },
   methods: {
 
     marcar(algo){
-       //return this.$store.commit('cambiandoFav',algo)
-       return this.$store.dispatch('enviarFavorito',algo)
-     }
-/*       let favori= this.$store.state.datos[algo].fav
-      favori=!favori
-       if (favori){
-        this.color='danger'
+      if (store.state.usuarioID!=''){
+       return store.dispatch('enviarFavorito',algo)
       }else{
-        this.color='success'
-      } 
-    }  */
-  },
+       alert('Ingresa para agregar favoritos')
+      }
+    },
+  }
 }
 </script>
