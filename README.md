@@ -1,12 +1,32 @@
 # El Recetario Maestro
 
-Web dedicada a la obtención de recetas de cocina para preparar algo diferente todos los días, pensada para personas quienes les gusta experimentar en sus platos. Esta cuenta con un panel de búsquedas por ingrediente, además de un login para guardar recetas favoritas.
+Sitio de recetas de cocina, con miles de opciones donde elegir lo que más te gusta y puedas experiementar nuevos sabores. 
 
 
-## Project setup
+## Usuarios Objetivos
+
+* Amantes de la cocina que gustan de preparar platos nuevos.
+
+* Personas no tan conococedoras de la cocina, que busquen recetas.
+
+## Bosquejo
+
+![](/src/assets/img/Bosquejo.png)
+
+## Requisitos Instalación
+
+Para instalar y ejecutar este proyecto debes
+* Tener una cuenta en la [API Edamam](https://developer.edamam.com/edamam-recipe-api)
+
+* Tener una cuenta con [Firebase de Google](https://firebase.google.com)
+
+## Instalación
+
 ```
 npm install
 ```
+Configurar carpeta config con tus datos para acceder a la API y a Firebase
+
 
 ### Compiles and hot-reloads for development
 ```
