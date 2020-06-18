@@ -1,38 +1,64 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
-import {user,key} from '../config/accesoApi'
+import firebase from 'firebase'
+import {db} from '../main'
+
 
 
 Vue.use(Vuex)
-import firebase from 'firebase'
+
 export default new Vuex.Store({
   state: {
 
       correo:'',
       clave:'',
       visible:true,
-      busqueda:'tomato',
-      datos:[]
-      // {nombre:'',
-      // ingredientes:[],
-      // imagen:''}
+      datos:null,
+      usuarioID:''
 
   },
   getters: {
+    listaRecetas(state){
+      return state.datos
+    },
+     traeUsuario(state){
+      return state.usuarioID
+    } 
 
   },
+  
   mutations: {
     login(state,valor){
       state.correo=valor[0]
       state.clave=valor[1]
-      firebase.auth().signInWithEmailAndPassword(state.correo,state.clave).then(()=>{
-        router.push('/favoritos')
-        state.visible=false
-           }).catch(err=>{
-             console.log(err)
-           })
+      firebase.auth().signInWithEmailAndPassword(state.correo,state.clave).then((respuesta)=>{
+
+          console.log(respuesta.user.uid)
+           state.usuarioID=respuesta.user.uid
+           console.log(state.usuarioID)
+
+          router.push('/favoritos')
+          state.visible=false
+             })          
+             .catch(err=>{
+               console.log(err)
+             })
+        
+        
+        //localStorage.setItem=user.uid
+        
+
     },
+
+/*     traerUser(state){
+        firebase.auth().onAuthStateChanged(function(user){
+          if(user){
+            console.log(user.id)
+           state.usuarioID=user.uid
+          }
+      })
+    }, */
     logout(state){
       firebase.auth().signOut().then(()=>{
         state.correo=''
@@ -41,38 +67,50 @@ export default new Vuex.Store({
         router.push('/login')
       })
     },
-    traerRecetas(state,busqueda){
-      fetch(`https://api.edamam.com/search?q=${busqueda}&app_id=${user}&app_key=${key}`).then(res=>{
-        return res.json()
-      }).then(data=>{
-        let aux=[]
-        let info=data.hits
-        console.log("info")
-        console.log(info)
-        info.forEach(element => {
-          console.log(element)
-         aux.push({     
-            nombre:element.recipe.label,
-            ingredientes:element.recipe.ingredientLines,
-            imagen:element.recipe.image
-            
-             })
-            
-           //this.state.datos.push(receta)
-        });
-        console.log(aux)
-        state.datos=aux
-        console.log(state.datos)
+    mutandoInfo(state,info){
+      state.datos = info
+       state.datos.forEach(element=>{
+        element.fav=false
+      }) 
+    },
+
+     escribiendoFav(state,valor){
+      
+/*       firebase.auth().onAuthStateChanged(function(user){
+        if(user){
+         state.usuarioID=user.uid */
+         state.datos.find(element=>{
+          if(valor==element.recipe.uri){
+            let receta ={
+              nombre: element.recipe.label,
+              ingredientes: element.recipe.ingredientLines,
+              imagen: element.recipe.image,
+              uri: element.recipe.uri
+            }
+            db.collection(state.usuarioID).doc(receta.nombre).set(receta)
+          /* }
+        }) */
+
+        }else{
+          console.error("No hay usuario")
+        }
       })
-    }
+        
+
+    } 
+
     
   },
   actions: {
-    ejecutar:({commit})=>{
-      commit('traerRecetas')
+
+    
+    recibiendoInfo(context,info){
+      context.commit('mutandoInfo',info)
+    },
+
+    enviarFavorito(context,info){
+      context.commit('escribiendoFav',info)
     }
 
-
-  },
-
+  }
 })

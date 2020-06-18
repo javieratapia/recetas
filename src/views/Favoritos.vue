@@ -13,59 +13,27 @@
 
         <b-col> -->
           <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="3" align-h="center"> 
-            <b-col>
+            <b-col v-for="(item,index) in listaFav" :key="index">
               <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
+                :title="item.nombre"
+                :img-src="item.imagen"
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="max-width: 20rem;"
-                class="mb-2"
-              >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
+                class="mb-2">
 
-                <b-button href="#" variant="primary">Go somewhere</b-button>
-              </b-card>          
+                <!-- <b-button href="#" :variant="color" @click="marcar(item.recipe.uri)">{{index}}</b-button> -->
+                <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ver Ingredientes</b-button>
+              </b-card>
+                <!--MODAL CONTENEDOR RECETA-->
+            <b-modal :title="item.nombre" :id="item.nombre" >
+              <p class="my-4" v-for="(variable,index) in item.ingredientes" :key="index">{{variable}}</p>
+            </b-modal> 
+         
             </b-col>
 
-            <b-col>
-              <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem;"
-                class="mb-2"
-              >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
-
-                <b-button href="#" variant="primary">Go somewhere</b-button>
-              </b-card>          
-            </b-col>
-
-            <b-col>
-              <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem;"
-                class="mb-2"
-              >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
-
-                <b-button href="#" variant="primary">Go somewhere</b-button>
-              </b-card>          
-            </b-col>
+            
       </b-row>
       <!-- </b-col> -->
       </b-row>
@@ -74,8 +42,34 @@
 </template>
 
 <script>
+
+import {db} from '../main'
+import store from '../store/index'
     export default {
-        name: 'Favoritos'
+        name: 'Favoritos',
+        data(){
+          return{
+            listaFav:[]
+          }
+        },
+        
+        mounted() {
+          
+          db.collection(store.getters.traeUsuario).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+        let aux={
+                nombre:doc.data().nombre,
+                imagen: doc.data().imagen,
+                ingredientes: doc.data().ingredientes
+              }
+              this.listaFav.push(aux)
+            
+        })
+    });
+              
+        
+    }
     }
 </script>
 

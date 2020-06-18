@@ -24,56 +24,33 @@
   <!--DESPLIEGUE RECETAS CON CARD EN COLUMNAS-->  
         <b-col lg="10" cols="12" >
           <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="3"> 
-            <b-col>
-              <b-card title="Card Title" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
-                <b-button href="#" variant="danger" v-b-modal.modal-1>Go somewhere</b-button>
-              </b-card>          
-            </b-col>
-
-  <!--MODAL CONTENEDOR RECETA-->
-            <b-modal id="modal-1" title="BootstrapVue">
-              <p class="my-4">Hello from modal!</p>
-            </b-modal>
-
-
-            <b-col>
+            <b-col v-for="(item,index) in recetas" :key="index">
               <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
+                :title="item.recipe.label"
+                :img-src="item.recipe.image"
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="max-width: 20rem;"
                 class="mb-2"
               >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
-
-                <b-button href="#" variant="primary">Go somewhere</b-button>
-              </b-card>          
+<!--                 <b-card-text v-for="(variable,index) in item.recipe.ingredientLines" :key="index">
+                  {{variable}}
+                </b-card-text> -->
+                <b-button href="#" :variant="color" @click="marcar(item.recipe.uri)">{{index}}</b-button>
+                <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" >Ver Ingredientes</b-button>
+              </b-card>
+                <!--MODAL CONTENEDOR RECETA-->
+            <b-modal :title="item.recipe.label" :id="item.recipe.uri" >
+              <p class="my-4" v-for="(variable,index) in item.recipe.ingredientLines" :key="index">{{variable}}</p>
+            </b-modal> 
+         
             </b-col>
 
-            <b-col>
-              <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem;"
-                class="mb-2"
-              >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
 
-                <b-button href="#" variant="primary" @click="recetas('tomato')">Go somewhere</b-button>
-              </b-card>          
-            </b-col>
+
+
+           
       </b-row>
       </b-col>
       </b-row>
@@ -87,10 +64,32 @@
 
 export default {
   name: 'Home',
-  methods: {
-    recetas(algo){
-      this.$store.dispatch('ejecutar',algo)
+  data(){
+    return{
+      fav:false,
+      color:''
     }
+  },
+  computed: {
+    recetas(){
+      return this.$store.getters.listaRecetas
+    },
+
+  },
+  methods: {
+
+    marcar(algo){
+       //return this.$store.commit('cambiandoFav',algo)
+       return this.$store.dispatch('enviarFavorito',algo)
+     }
+/*       let favori= this.$store.state.datos[algo].fav
+      favori=!favori
+       if (favori){
+        this.color='danger'
+      }else{
+        this.color='success'
+      } 
+    }  */
   },
 }
 </script>

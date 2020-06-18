@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,8 @@ Vue.use(VueRouter)
   {
     path: '/favoritos',
     name: 'Favoritos',
-    component: () => import('../views/Favoritos.vue')
+    component: () => import('../views/Favoritos.vue'),
+    meta:{requiredAuth:true}
   },
 ]
 
@@ -26,6 +28,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+router.beforeEach((to,from,next)=>{
+  let loginReq=to.matched.some(url=>url.meta.requiredAuth)
+
+  if(loginReq && !store.state.usuarioID){
+    next('/login')
+  }else{
+    next()
+  }
 })
 
 export default router
