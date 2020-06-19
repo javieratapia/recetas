@@ -1,18 +1,19 @@
 <template>
     <div class="mt-5 ">
 
-    <b-container class="bv-example-row" fluid>
-        <b-row align-h="center">  
-          <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="3" align-h="center"> 
-            <b-col v-for="(item,index) in listaFav" :key="index">
+    <b-container class="bv-example-row">
+          <b-row  align-h="center"> 
+            <b-card-group deck v-for="(item,index) in listaFav" :key="index">
+           
               <b-card
                 :title="item.nombre"
                 :img-src="item.imagen"
                 img-alt="Image"
                 img-top
                 tag="article"
-                style="max-width: 20rem;"
-                class="mb-2">
+                style="max-width: 20rem"
+                class="mb-2 mx-4"
+                >
 
                
                 <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ver Ingredientes</b-button>
@@ -21,13 +22,14 @@
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.nombre" :id="item.nombre" >
               <p class="my-4" v-for="(variable,index) in item.ingredientes" :key="index">{{variable}}</p>
+              <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="item.url">Receta Original</b-button>
             </b-modal> 
          
-            </b-col>
-
             
-      </b-row>
-      <!-- </b-col> -->
+  </b-card-group>
+            
+      
+
       </b-row>
     </b-container>
     </div>
@@ -51,7 +53,8 @@ import store from '../store/index'
             let aux={
                 nombre:doc.data().nombre,
                 imagen: doc.data().imagen,
-                ingredientes: doc.data().ingredientes
+                ingredientes: doc.data().ingredientes,
+                url: doc.data().url
                 }
               this.listaFav.push(aux)            
             })
@@ -78,4 +81,5 @@ import store from '../store/index'
 .mt-5{
   margin-top: 6rem!important;
 }
+
 </style>

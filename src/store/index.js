@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from '../router/index'
 import firebase from 'firebase'
 import {db} from '../main'
+import { conexionApi } from '../config/conexionApi'
 
 
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
       clave:'',
       visible:true,
       datos:null,
-      usuarioID:''
+      usuarioID:'',
+      busqueda:''
 
   },
   getters: {
@@ -46,7 +48,6 @@ export default new Vuex.Store({
              })
     },
 
-
     logout(state){
       firebase.auth().signOut().then(()=>{
         state.correo=''
@@ -55,6 +56,7 @@ export default new Vuex.Store({
         router.push('/login')
       })
     },
+
     mutandoInfo(state,info){
       state.datos = info
        state.datos.forEach(element=>{
@@ -62,16 +64,17 @@ export default new Vuex.Store({
       }) 
     },
 
-     escribiendoFav(state,valor){
-         state.datos.find(element=>{
-          if(valor==element.recipe.label){
-            let receta ={
-              nombre: element.recipe.label,
-              ingredientes: element.recipe.ingredientLines,
-              imagen: element.recipe.image,
-              uri: element.recipe.uri
+    escribiendoFav(state,valor){
+      state.datos.find(element=>{
+        if(valor==element.recipe.label){
+          let receta ={
+            nombre: element.recipe.label,
+            ingredientes: element.recipe.ingredientLines,
+            imagen: element.recipe.image,
+            uri: element.recipe.uri,
+            url: element.recipe.url
             }
-            db.collection(state.usuarioID).doc(receta.nombre).set(receta)
+        db.collection(state.usuarioID).doc(receta.nombre).set(receta)
           }
         })
       },
@@ -82,6 +85,12 @@ export default new Vuex.Store({
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
+    },
+
+    buscador(state,valor){
+      state.busqueda = valor
+      conexionApi()
+      console.log(state.busqueda)
     }
 
     
@@ -98,6 +107,9 @@ export default new Vuex.Store({
     },
     eliminarFavorito(context,info){
       context.commit('eliminandoFav',info)
+    },
+    iniciaBuscador(context,info){
+      context.commit('buscador',info)
     }
 
   }

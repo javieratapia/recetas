@@ -11,20 +11,21 @@
 
 <!--BODY-->
     <b-container class="bv-example-row" fluid>
-        <b-row>  
+          
 
   <!--PANEL DE BUSQUEDAS Y FILTROS-->
-          <b-col lg="2" cols="12"  class="text-left"  >
+          
             <b-nav-form class="mx-auto">
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">...</b-button>
+              <b-form-input size="sm" v-model="busqueda" class="mr-sm-2" placeholder="Search"></b-form-input>
+              <b-button size="sm" class="my-2 my-sm-0" @click.prevent="buscar()">...</b-button>
             </b-nav-form>
-          </b-col>
+          
 
   <!--DESPLIEGUE RECETAS CON CARD EN COLUMNAS-->  
-        <b-col lg="10" cols="12" >
-          <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="3"> 
-            <b-col v-for="(item,index) in recetas" :key="index">
+        <b-container class="bv-example-row">
+          <b-row align-h="center">
+            <b-card-group deck v-for="(item,index) in recetas" :key="index">
+            
               <b-card
                 :title="item.recipe.label"
                 :img-src="item.recipe.image"
@@ -32,29 +33,26 @@
                 img-top
                 tag="article"
                 style="max-width: 20rem;"
-                class="mb-2"
+                class="mb-2 mx-4"
               >
-<!--                 <b-card-text v-for="(variable,index) in item.recipe.ingredientLines" :key="index">
-                  {{variable}}
-                </b-card-text> -->
+
                 <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" class="mx-2">Ingredientes</b-button>
-                <b-button href="#" :variant="color" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
+                <b-button href="#" variant="danger" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
                 
               </b-card>
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.recipe.label" :id="item.recipe.uri" >
               <p class="my-4" v-for="(variable,index) in item.recipe.ingredientLines" :key="index">{{variable}}</p>
-            </b-modal> 
-         
-            </b-col>
+              <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="item.recipe.url">Receta Original</b-button>
+            </b-modal>          
+          </b-card-group>
+          </b-row>
+          </b-container>
+          
 
-
-
-
-           
-      </b-row>
-      </b-col>
-      </b-row>
+      
+      
+      
     </b-container>
 
   </div>
@@ -67,8 +65,7 @@ export default {
   name: 'Home',
   data(){
     return{
-      fav:false,
-      color:''
+      busqueda:''
     }
   },
   computed: {
@@ -79,13 +76,20 @@ export default {
   },
   methods: {
 
-    marcar(algo){
+    marcar(element){
       if (store.state.usuarioID!=''){
-       return store.dispatch('enviarFavorito',algo)
+       return store.dispatch('enviarFavorito',element)
       }else{
        alert('Ingresa para agregar favoritos')
       }
     },
+    buscar(){
+      if(this.busqueda!=''){
+        store.dispatch('iniciaBuscador',this.busqueda)
+      }else{
+        alert('Ingresa una palabra para buscar')
+      }
+    }
   }
 }
 </script>
