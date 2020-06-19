@@ -9,21 +9,11 @@
 
 <script>
 import Navegador from '@/components/Navegador.vue'
-import {conexionApi} from './config/conexionApi.js'
 
 export default {
   components: {
     Navegador
-  },
-/*    data(){
-    return{
-      info:null,
-      busqueda: 'tomato'
-    }
-  },*/
-   mounted() {
-     conexionApi()
-   },  
+  }, 
 }
 </script>
 <style lang="scss">

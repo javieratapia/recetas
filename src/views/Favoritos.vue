@@ -15,10 +15,12 @@
                 class="mb-2 mx-4"
                 footer-bg-variant="white"
                 >
-                <template v-slot:header>
-                  {{item.nombre}}
-                </template>
 
+              <template v-slot:header>
+                <div v-if="item.nombre.length<=30">{{item.nombre}} </div>
+                <div v-else>{{item.nombre.slice(0, 30)}}... </div>
+              </template>
+                
                 <template v-slot:footer> 
                   <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ingredientes</b-button>
                   <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>

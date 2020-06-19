@@ -40,11 +40,16 @@
                 class="mb-2 mx-4"
                 footer-bg-variant="white"
               >
+              <template v-slot:header>
+              <div v-if="item.recipe.label.length<=30">                
+                  {{item.recipe.label}}                
+              </div>
 
-                <template v-slot:header>
-                  {{item.recipe.label}}
-                </template>
-
+              <div v-else>
+                  {{item.recipe.label.slice(0, 30)}}...                
+              </div>
+              </template>
+              
               <template v-slot:footer>              
                 <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" class="mx-2">Ingredientes</b-button>
                 <b-button href="#" variant="danger" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
@@ -69,7 +74,7 @@
 </template>
 
 <script>
-
+import {conexionApi} from '../config/conexionApi.js'
 import store from '../store/index'
 export default {
   name: 'Home',
@@ -78,6 +83,9 @@ export default {
       busqueda:''
     }
   },
+  mounted() {
+    conexionApi()
+   },
   computed: {
     recetas(){
       return store.getters.listaRecetas
@@ -103,3 +111,10 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+.card-img-top{
+  height: 315px;
+  object-fit: cover;
+
+}
+</style>

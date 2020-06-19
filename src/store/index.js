@@ -40,9 +40,13 @@ export default new Vuex.Store({
               state.nombre=doc.data().nombre
               state.preferencia=doc.data().preferencia                        
           })
-        })
-        conexionApi()       
-        router.push('/')
+        }).then(()=>{
+          conexionApi()
+          setTimeout((function(){ router.push('/') }), 1000)
+          
+          
+        })              
+        
         state.visible=false
       }).catch(err=>{
           console.log(err)
