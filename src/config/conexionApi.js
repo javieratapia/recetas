@@ -10,9 +10,17 @@ export function conexionApi() {
         store.dispatch('recibiendoInfo',response.data.hits)
     }).catch(error=>{
         console.error(error)
+    })
+    }else if(store.state.preferencia!='')
+    {   console.log(store.state.preferencia)
+        axios.get(`https://api.edamam.com/search?q=${store.state.preferencia}&app_id=${user}&app_key=${key}`)
+        .then(response=>{
+            store.dispatch('recibiendoInfo',response.data.hits)
+        }).catch(error=>{
+            console.error(error)
+    })
     }
-    )}else{
-    axios.get(`https://api.edamam.com/search?q=tomato&app_id=${user}&app_key=${key}`)
+     else{axios.get(`https://api.edamam.com/search?q=tomato&app_id=${user}&app_key=${key}`)
     .then(response=>{
         store.dispatch('recibiendoInfo',response.data.hits)
     }).catch(error=>{
@@ -20,5 +28,5 @@ export function conexionApi() {
     }
     )
 
-    }
+    } 
 }

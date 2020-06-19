@@ -14,12 +14,16 @@
           
 
   <!--PANEL DE BUSQUEDAS Y FILTROS-->
-          
-            <b-nav-form class="mx-auto">
-              <b-form-input size="sm" v-model="busqueda" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" @click.prevent="buscar()">...</b-button>
-            </b-nav-form>
-          
+          <b-container class="my-5">
+            <b-row align-h="center">
+              <b-col cols="8">
+                <b-input-group align-h="center">
+                  <b-form-input size="sm" v-model="busqueda" class="mr-sm-2" placeholder="Search"></b-form-input>
+                  <b-button size="sm" class="ml-2" variant="danger" @click.prevent="buscar()">Buscar</b-button>
+                </b-input-group>
+              </b-col>
+            </b-row>
+          </b-container>
 
   <!--DESPLIEGUE RECETAS CON CARD EN COLUMNAS-->  
         <b-container class="bv-example-row">
@@ -27,18 +31,24 @@
             <b-card-group deck v-for="(item,index) in recetas" :key="index">
             
               <b-card
-                :title="item.recipe.label"
                 :img-src="item.recipe.image"
+                no-body
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="max-width: 20rem;"
                 class="mb-2 mx-4"
+                footer-bg-variant="white"
               >
 
+                <template v-slot:header>
+                  {{item.recipe.label}}
+                </template>
+
+              <template v-slot:footer>              
                 <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" class="mx-2">Ingredientes</b-button>
                 <b-button href="#" variant="danger" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
-                
+              </template>          
               </b-card>
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.recipe.label" :id="item.recipe.uri" >

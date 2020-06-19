@@ -22,6 +22,16 @@ Vue.use(VueRouter)
     component: () => import('../views/Favoritos.vue'),
     meta:{requiredAuth:true}
   },
+  {
+    path: '/registro',
+    name: 'Registro',
+    component: () => import('../views/Registro.vue')
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue')
+  },
 ]
 
 const router = new VueRouter({

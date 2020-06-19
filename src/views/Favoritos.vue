@@ -6,18 +6,23 @@
             <b-card-group deck v-for="(item,index) in listaFav" :key="index">
            
               <b-card
-                :title="item.nombre"
                 :img-src="item.imagen"
+                no-body
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2 mx-4"
+                footer-bg-variant="white"
                 >
+                <template v-slot:header>
+                  {{item.nombre}}
+                </template>
 
-               
-                <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ver Ingredientes</b-button>
-                 <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>
+                <template v-slot:footer> 
+                  <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ingredientes</b-button>
+                  <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>
+                </template>
               </b-card>
                 <!--MODAL CONTENEDOR RECETA-->
             <b-modal :title="item.nombre" :id="item.nombre" >
@@ -48,7 +53,8 @@ import store from '../store/index'
         },
         
         mounted() {
-          db.collection(store.getters.traeUsuario).get().then((querySnapshot) => {
+          db.collection(store.getters.traeUsuario).doc('favorito').collection('favorito').get().
+          then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
             let aux={
                 nombre:doc.data().nombre,
@@ -67,9 +73,7 @@ import store from '../store/index'
               if(element.nombre==algo){
                 this.listaFav.splice(ind,1)
                 return store.dispatch('eliminarFavorito',algo)
-              }else{
-                console.error("no encontrado")
-              } 
+              }
             })
             
           }
