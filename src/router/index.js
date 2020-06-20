@@ -27,6 +27,12 @@ Vue.use(VueRouter)
   { path: '/fav', redirect: '/favoritos' },
   { path: '/favorito', redirect: '/favoritos' },
   {
+    path: '/perfil',
+    name: 'Perfil',
+    component: () => import('../views/Perfil.vue'),
+    meta:{requiredAuth:true}
+  },
+  {
     path: '/registro',
     name: 'Registro',
     component: () => import('../views/Registro.vue')

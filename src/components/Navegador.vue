@@ -34,9 +34,9 @@
             <template v-slot:button-content>
               <em>Bienvenido</em>
             </template>
-
+            
             <router-link to="/favoritos" class="routerLink dropdown-item">Favoritos</router-link>
-
+            <router-link to="/perfil" class="routerLink dropdown-item">Perfil</router-link>
             <b-dropdown-item @click="logout">Desconectarse</b-dropdown-item>
           </b-nav-item-dropdown>
 

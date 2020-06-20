@@ -2,12 +2,19 @@
   <div>
 
 <!--HEADER JUMBOTRON BIENVENIDA A LA PAG-->
-    <div>
-      <b-jumbotron header="El Recetario Maestro" lead="¿Te gusta cocinar? Prepara algo diferente cada día">
-        <p>Ingresa para guardar tus platos favoritos</p>
-        <router-link to="/login"><b-button variant="danger">Login</b-button></router-link>
+    <div v-if=this.$store.state.visible>
+      <b-jumbotron class="jumbo" header="El Recetario Maestro" lead="¿Te gusta cocinar? Prepara algo diferente cada día">
+          <p>Ingresa para guardar tus platos favoritos</p>
+          <router-link to="/login"><b-button variant="danger">Login</b-button></router-link>
       </b-jumbotron>
     </div>
+
+    <div v-else>
+      <b-jumbotron class="jumbo" header="El Recetario Maestro">
+          <h2>Hola! {{this.$store.state.nombre}}</h2>
+          <p>¿Estás listo para encontrar la receta perfecta?</p>
+      </b-jumbotron>
+    </div> 
 
 <!--BODY-->
     <b-container class="bv-example-row" fluid>
@@ -130,4 +137,10 @@ export default {
   object-fit: cover;
 
 }
+.jumbo {
+  background-image: url("../assets/img/jumbito.jpg");
+  background-position: center top;
+  color:white;
+}
+
 </style>

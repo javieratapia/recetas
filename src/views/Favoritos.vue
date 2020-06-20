@@ -1,6 +1,6 @@
 <template>
     <div class="mt-5 ">
-
+    <h1 class="mb-4">Tus Recetas Favoritas</h1>
     <b-container class="bv-example-row">
           <b-row  align-h="center"> 
             <b-card-group deck v-for="(item,index) in listaFav" :key="index">
