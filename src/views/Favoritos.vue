@@ -43,7 +43,7 @@
 </template>
 
 <script>
-
+import Swal from 'sweetalert2'
 import {db} from '../main'
 import store from '../store/index'
     export default {
@@ -71,10 +71,28 @@ import store from '../store/index'
 
         methods:{
           desmarcar(algo){
-            this.listaFav.map((element,ind)=>{
-              if(element.nombre==algo){
-                this.listaFav.splice(ind,1)
-                return store.dispatch('eliminarFavorito',algo)
+            Swal.fire({
+              title: 'Estás quitando un favorito',
+              text: "Tendrás que buscarlo nuevamente, cuando lo quieras volver a preparar",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#dc3545',
+              cancelButtonColor: '#dc3545',
+              confirmButtonText: 'Sí, bórrate'
+            }).then((result) => {
+              if (result.value) {
+                this.listaFav.map((element,ind)=>{
+                  if(element.nombre==algo){
+                    this.listaFav.splice(ind,1)
+                  return store.dispatch('eliminarFavorito',algo)
+                  }
+                  })
+                Swal.fire({
+                  title:'Eliminada',
+                  text:'Has elimido la receta correctamente',
+                  icon:'success',
+                  confirmButtonColor: '#dc3545',
+                })            
               }
             })
             

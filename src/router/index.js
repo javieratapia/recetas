@@ -6,6 +6,7 @@ import store from '../store'
 Vue.use(VueRouter)
 
   const routes = [
+    
   {
     path: '/',
     name: 'Home',
@@ -14,7 +15,8 @@ Vue.use(VueRouter)
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    alias: ['/ingresa', '/logueate', '/ingresar']
   },
   {
     path: '/favoritos',
@@ -22,11 +24,15 @@ Vue.use(VueRouter)
     component: () => import('../views/Favoritos.vue'),
     meta:{requiredAuth:true}
   },
+  { path: '/fav', redirect: '/favoritos' },
+  { path: '/favorito', redirect: '/favoritos' },
   {
     path: '/registro',
     name: 'Registro',
     component: () => import('../views/Registro.vue')
   },
+  { path: '/registrate', redirect: '/registro' },
+  { path: '/registrar', redirect: '/registro' },
   {
     path: '*',
     name: 'NotFound',

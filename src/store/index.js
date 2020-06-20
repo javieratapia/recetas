@@ -4,6 +4,7 @@ import router from '../router/index'
 import firebase from 'firebase'
 import {db} from '../main'
 import { conexionApi } from '../config/conexionApi'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -42,14 +43,32 @@ export default new Vuex.Store({
           })
         }).then(()=>{
           conexionApi()
-          setTimeout((function(){ router.push('/') }), 1000)
-          
-          
-        })              
-        
+          setTimeout((function(){ router.push('/') }), 1000)  
+        })                      
         state.visible=false
-      }).catch(err=>{
-          console.log(err)
+      }).catch(error=>{
+          if (error.code=='auth/user-not-found'){
+            Swal.fire({
+              icon: 'error',
+              title: 'Usuario No Encontrado',
+              text: 'Registrate para acceder',
+              confirmButtonColor:'#dc3545'
+            })
+          }else if (error.code=='auth/invalid-email'){
+            Swal.fire({
+              icon: 'error',
+              title: 'Error en Correo',
+              text: 'Ingresa un correo válido',
+              confirmButtonColor:'#dc3545'
+            })
+          }else if(error.code=='auth/wrong-password'){
+            Swal.fire({
+              icon: 'error',
+              title: 'Error en Contraseña',
+              text: 'Ingresa contraseña correcta',
+              confirmButtonColor:'#dc3545'
+            })
+          }          
         })
     },
 
@@ -66,11 +85,16 @@ export default new Vuex.Store({
           preferencia: preference
         }
         db.collection(usuario).doc('datos').set(datos) 
-      })
-      
-      
-      .catch(function(error) {
-        console.log(error)
+      }).catch(function(error) {
+        if (error.code=='auth/email-already-exists'){
+          Swal.fire({
+            icon: 'error',
+            title: 'Este correo ya existe',
+            text: 'Logueate para acceder',
+            confirmButtonColor:'#dc3545'
+          })
+        }
+     
       });
     }, 
 

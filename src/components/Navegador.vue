@@ -1,7 +1,10 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="danger" fixed="top">
-      <b-navbar-brand href="#">El Recetario Maestro</b-navbar-brand>
+      
+      <b-navbar-brand href="#">
+        <img src="../assets/img/gorritob.png" alt="" class="logo">
+        El Recetario Maestro</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -60,6 +63,9 @@ export default {
 
 .routerLink:hover{
   text-decoration: none;
+}
+.logo{
+  width: 40px;
 }
 
 

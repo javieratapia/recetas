@@ -1,6 +1,7 @@
 import {user,key} from './accesoApi'
 import axios from 'axios'
 import store from '../store/index'
+import Swal from 'sweetalert2'
 
 
 export function conexionApi() {
@@ -8,8 +9,16 @@ export function conexionApi() {
        
     axios.get(`https://api.edamam.com/search?q=${store.state.busqueda}&app_id=${user}&app_key=${key}`)
     .then(response=>{
-        store.dispatch('recibiendoInfo',response.data.hits)
-        console.log('entre a busqueda '+ store.state.busqueda)
+        if(response.data.count!=0){
+            store.dispatch('recibiendoInfo',response.data.hits)
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'No encontramos recetas',
+                text: 'Ingresa otra busqueda',
+                confirmButtonColor:'#dc3545'
+            })
+        }
     }).catch(error=>{
         console.error(error)
     })
@@ -18,7 +27,6 @@ export function conexionApi() {
         axios.get(`https://api.edamam.com/search?q=${store.state.preferencia}&app_id=${user}&app_key=${key}`)
         .then(response=>{
             store.dispatch('recibiendoInfo',response.data.hits)
-            console.log('entre a preferencia ' + store.state.preferencia)
         }).catch(error=>{
             console.error(error)
     })
@@ -27,7 +35,6 @@ export function conexionApi() {
      
     .then(response=>{
         store.dispatch('recibiendoInfo',response.data.hits)
-        console.log('entre a tomato')
     }).catch(error=>{
         console.error(error)
     }

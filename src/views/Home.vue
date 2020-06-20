@@ -76,6 +76,8 @@
 <script>
 import {conexionApi} from '../config/conexionApi.js'
 import store from '../store/index'
+import Swal from 'sweetalert2'
+
 export default {
   name: 'Home',
   data(){
@@ -98,14 +100,25 @@ export default {
       if (store.state.usuarioID!=''){
        return store.dispatch('enviarFavorito',element)
       }else{
-       alert('Ingresa para agregar favoritos')
+        Swal.fire({
+          icon: 'error',
+          title: 'Logueate',
+          text: 'Debes tener una cuenta para guardar favoritos',
+          confirmButtonColor:'#dc3545'
+        })
       }
     },
     buscar(){
       if(this.busqueda!=''){
         store.dispatch('iniciaBuscador',this.busqueda)
       }else{
-        alert('Ingresa una palabra para buscar')
+        Swal.fire({
+          icon: 'error',
+          title: 'No hay nada aquí',
+          text: 'Ingresa una palabra para buscar',
+          confirmButtonColor:'#dc3545'
+        })
+        
       }
     }
   }
