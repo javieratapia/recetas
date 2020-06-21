@@ -3,9 +3,9 @@
     <h1 class="mb-4">Tus Recetas Favoritas</h1>
     <b-container class="bv-example-row">
           <b-row  align-h="center"> 
-            <b-card-group deck v-for="(item,index) in listaFav" :key="index">
-           
-              <b-card
+            <b-card-group deck v-for="(item,index) in this.$store.state.listaFav" :key="index">
+              <card :imagen="item.imagen" :nombre="item.nombre" :uri="item.nombre" :ingredientes="item.ingredientes" :url="item.url" :fav="false" ></card>
+              <!-- <b-card
                 :img-src="item.imagen"
                 no-body
                 img-alt="Image"
@@ -25,12 +25,12 @@
                   <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ingredientes</b-button>
                   <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>
                 </template>
-              </b-card>
-                <!--MODAL CONTENEDOR RECETA-->
+              </b-card>-->
+                <!--MODAL CONTENEDOR RECETA
             <b-modal :title="item.nombre" :id="item.nombre" >
               <p class="my-4" v-for="(variable,index) in item.ingredientes" :key="index">{{variable}}</p>
               <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="item.url">Receta Original</b-button>
-            </b-modal> 
+            </b-modal>  -->
          
             
   </b-card-group>
@@ -43,18 +43,23 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
-import {db} from '../main'
-import store from '../store/index'
+//import Swal from 'sweetalert2'
+//import {db} from '../main'
+//import store from '../store/index'
+import Card from '../components/Card'
     export default {
         name: 'Favoritos',
         data(){
           return{
-            listaFav:[]
+            //listaFav:[]
           }
         },
+        components:{
+          Card
+        },
         
-        mounted() {
+/*         mounted() {
+          store.state.listaFav=[]
           db.collection(store.getters.traeUsuario).doc('favorito').collection('favorito').get().
           then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -64,11 +69,11 @@ import store from '../store/index'
                 ingredientes: doc.data().ingredientes,
                 url: doc.data().url
                 }
-              this.listaFav.push(aux)            
+              store.state.listaFav.push(aux)            
             })
           });       
-        },
-
+        }, */
+/* 
         methods:{
           desmarcar(algo){
             Swal.fire({
@@ -97,7 +102,7 @@ import store from '../store/index'
             })
             
           }
-        }
+        } */
     }
 </script>
 

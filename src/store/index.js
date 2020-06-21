@@ -18,7 +18,9 @@ export default new Vuex.Store({
       datos:null,
       usuarioID:'',
       busqueda:'',
-      cambios: true
+      cambios: true,
+      listaFav:[],
+      nombresFav:[]
   },
 
   getters: {
@@ -50,6 +52,21 @@ export default new Vuex.Store({
               state.nombre=doc.data().nombre
               state.preferencia=doc.data().preferencia                        
           })
+        }).then(()=>{
+          state.listaFav=[]
+          db.collection(state.usuarioID).doc('favorito').collection('favorito').get().
+          then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+            let aux={
+                nombre:doc.data().nombre,
+                imagen: doc.data().imagen,
+                ingredientes: doc.data().ingredientes,
+                url: doc.data().url
+                }
+              state.listaFav.push(aux)
+              state.nombresFav.push(aux.nombre)            
+            })
+          }); 
         }).then(()=>{
           conexionApi()
           setTimeout((function(){ router.push('/') }), 1000)  
@@ -119,19 +136,38 @@ export default new Vuex.Store({
     logout(state){
       firebase.auth().signOut().then(()=>{
         state.correo=''
+        state.clave=''
         state.nombre=''
         state.preferencia=''   
         state.visible=true
-        state.usuarioID=''   
+        state.usuarioID=''
+        state.listaFav=[] 
+        state.nombresFav=[] 
+        state.busqueda=''
+        state.datos=null
+        state.cambios=true
+      }).then(()=>{
         router.push('/login')
       })
     },
 
     mutandoInfo(state,info){
       state.datos = info
-      state.datos.forEach(element=>{
-        element.fav=false
-      }) 
+/*       if(state.usuarioID!=''){
+        state.datos.forEach(element=>{
+          state.listaFav.find(variable => {
+            if (variable.nombre ==element.recipe.label){
+              element.fav=true
+            }else{
+              element.fav=false
+            }
+          })
+          console.log(state.datos.data)  
+          
+          // if(element.recipe.label==listaFav.nombre)
+          // element.fav=false
+        })
+      } */  
     },
 
     escribiendoFav(state,valor){

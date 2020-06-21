@@ -8,9 +8,13 @@
 </template>
 
 <script>
+import {conexionApi} from './config/conexionApi'
 import Navegador from '@/components/Navegador.vue'
 
 export default {
+    mounted() {
+    conexionApi()
+   },
   components: {
     Navegador
   }, 

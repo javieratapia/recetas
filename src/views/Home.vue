@@ -36,8 +36,8 @@
         <b-container class="bv-example-row">
           <b-row align-h="center">
             <b-card-group deck v-for="(item,index) in recetas" :key="index">
-            
-              <b-card
+              <card :imagen="item.recipe.image" :nombre="item.recipe.label" :uri="item.recipe.uri" :ingredientes="item.recipe.ingredientLines" :url="item.recipe.url" :fav="true"></card>
+              <!-- <b-card
                 :img-src="item.recipe.image"
                 no-body
                 img-alt="Image"
@@ -59,32 +59,27 @@
               
               <template v-slot:footer>              
                 <b-button href="#" variant="danger" v-b-modal="item.recipe.uri" class="mx-2">Ingredientes</b-button>
-                <b-button href="#" variant="danger" @click="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
+                <b-button href="#" variant="danger" @click.stop.once="marcar(item.recipe.label)" class="mx-2">Favorito</b-button>
               </template>          
-              </b-card>
-                <!--MODAL CONTENEDOR RECETA-->
+              </b-card>-->
+                <!--MODAL CONTENEDOR RECETA
             <b-modal :title="item.recipe.label" :id="item.recipe.uri" >
               <p class="my-4" v-for="(variable,index) in item.recipe.ingredientLines" :key="index">{{variable}}</p>
               <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="item.recipe.url">Receta Original</b-button>
-            </b-modal>          
+            </b-modal>      -->     
           </b-card-group>
           </b-row>
-          </b-container>
-          
-
-      
-      
-      
+          </b-container>     
     </b-container>
 
   </div>
 </template>
 
 <script>
-import {conexionApi} from '../config/conexionApi.js'
+
 import store from '../store/index'
 import Swal from 'sweetalert2'
-
+import Card from '../components/Card'
 export default {
   name: 'Home',
   data(){
@@ -92,18 +87,18 @@ export default {
       busqueda:''
     }
   },
-  mounted() {
-    conexionApi()
-   },
+  components:{
+    Card
+  },
   computed: {
     recetas(){
       return store.getters.listaRecetas
     },
 
   },
-  methods: {
+   methods: {
 
-    marcar(element){
+    /*marcar(element){
       if (store.state.usuarioID!=''){
        return store.dispatch('enviarFavorito',element)
       }else{
@@ -114,7 +109,7 @@ export default {
           confirmButtonColor:'#dc3545'
         })
       }
-    },
+    },*/
     buscar(){
       if(this.busqueda!=''){
         store.dispatch('iniciaBuscador',this.busqueda)
@@ -128,7 +123,7 @@ export default {
         
       }
     }
-  }
+  } 
 }
 </script>
 <style scoped lang="scss">
