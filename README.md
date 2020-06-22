@@ -9,9 +9,13 @@ Sitio de recetas de cocina, con miles de opciones donde elegir lo que más te gu
 
 * Personas no tan conococedoras de la cocina, que busquen recetas.
 
-## Bosquejo
+## Diseño
 
-![](/src/assets/img/Bosquejo.png)
+![](/src/assets/img/Flujo.png)
+
+## Guía de Estilos
+
+![](/src/assets/img/Guia-de-Estilos.png)
 
 ## Requisitos Instalación
 
