@@ -1,39 +1,27 @@
 <template>
     <div>
         <b-card
-            :img-src="imagen"
-            no-body
-            img-alt="Image"
-            img-top
-            tag="article"
-            style="max-width: 20rem;"
-            class="mb-2 mx-4"
-            footer-bg-variant="white"
-            >
+            :img-src="imagen" no-body img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 mx-4" footer-bg-variant="white">
             <template v-slot:header>
                 <div v-if="nombre.length<=30">                
                     {{nombre}}                
                 </div>
-
                 <div v-else>
                     {{nombre.slice(0, 30)}}...                
                 </div>
             </template>
                 
-            <template v-slot:footer>              
+            <template v-slot:footer>           
                 <b-button href="#" variant="danger" v-b-modal="uri" class="mx-2">Ingredientes</b-button>
-            <!--BOTON VISTA HOME
-                <b-button v-if="fav" href="#" :variant="esFav?'outline-danger':'danger'" @click.once="marcar(nombre)" class="mx-2" :v-text="esFav?
-                'Guardada':'Favoritos'">Favorito</b-button>-->
-                
-                <b-button v-if="fav" href="#" :variant="botonActivo?'outline-danger':'danger'" @click.once="marcar(nombre)" class="mx-2">{{botonActivo? 
+                <!--BOTON VISTA HOME-->                   
+                <b-button v-if="fav" href="#" :variant="botonActivo||esFav?'outline-danger':'danger'" @click.once="marcar(nombre)" :disabled="botonActivo||esFav" class="mx-2">{{botonActivo||esFav? 
                 'Guardada':'Favoritos'}}</b-button>                
 
             <!--BOTON VISTA FAVORITOS -->
                 <b-button v-else href="#" variant="danger" @click="desmarcar(uri)" class="mx-2">Quitar Favorito</b-button>
             </template>          
         </b-card>
-                <!--MODAL CONTENEDOR RECETA-->
+        <!--MODAL CONTENEDOR RECETA-->
         <b-modal :title="nombre" :id="uri" okVariant= 'danger' okTitle= 'Listo' ok-only>
             <p class="my-4" v-for="(variable,index) in ingredientes" :key="index">{{variable}}</p>
             <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="url">Receta Original</b-button>
@@ -60,11 +48,12 @@
         },
         methods: {
             marcar(element){
-                //this.esFav=false
+                this.esFav=false
                 if (store.state.usuarioID!=''){
-                    //this.esFav=true
+                    this.esFav=true
                     return store.dispatch('enviarFavorito',element)
                 }else{
+                    this.esFav=false
                     Swal.fire({
                     icon: 'error',
                     title: 'Logueate',
@@ -102,6 +91,7 @@
                 
             }
         },//fin methods
+        
         computed: {
             botonActivo(){
                 if(store.state.usuarioID!=''){

@@ -1,108 +1,45 @@
 <template>
-    <div class="mt-5 ">
-    <h1 class="mb-4">Tus Recetas Favoritas</h1>
-    <b-container class="bv-example-row">
-          <b-row  align-h="center"> 
-            <b-card-group deck v-for="(item,index) in this.$store.state.listaFav" :key="index">
-              <card :imagen="item.imagen" :nombre="item.nombre" :uri="item.nombre" :ingredientes="item.ingredientes" :url="item.url" :fav="false" ></card>
-              <!-- <b-card
-                :img-src="item.imagen"
-                no-body
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem"
-                class="mb-2 mx-4"
-                footer-bg-variant="white"
-                >
-
-              <template v-slot:header>
-                <div v-if="item.nombre.length<=30">{{item.nombre}} </div>
-                <div v-else>{{item.nombre.slice(0, 30)}}... </div>
-              </template>
-                
-                <template v-slot:footer> 
-                  <b-button href="#" variant="danger" v-b-modal="item.nombre" >Ingredientes</b-button>
-                  <b-button href="#" variant="danger" @click="desmarcar(item.nombre)" class="mx-2">Quitar Favorito</b-button>
-                </template>
-              </b-card>-->
-                <!--MODAL CONTENEDOR RECETA
-            <b-modal :title="item.nombre" :id="item.nombre" >
-              <p class="my-4" v-for="(variable,index) in item.ingredientes" :key="index">{{variable}}</p>
-              <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="item.url">Receta Original</b-button>
-            </b-modal>  -->
-         
-            
-  </b-card-group>
-            
-      
-
+  <div class="mt-5 ">
+    <h1 class="mb-4">Tu Recetario</h1>
+    <b-container class="my-5">
+      <b-row align-h="center">
+        <b-col cols="8">
+          <b-input-group align-h="center">
+            <b-form-input size="sm" v-model="busquedafav" prepend="Buscar" class="mr-sm-2" placeholder="Escribe acá para buscar en tu Recetario"></b-form-input>
+          </b-input-group>
+        </b-col>
       </b-row>
     </b-container>
-    </div>
+    <b-container class="bv-example-row">
+      <b-row  align-h="center"> 
+        <b-card-group deck v-for="(item,index) in traerFav" :key="index">
+          <card :imagen="item.imagen" :nombre="item.nombre" :uri="item.nombre" :ingredientes="item.ingredientes" :url="item.url" :fav="false" ></card>                   
+        </b-card-group>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
-//import Swal from 'sweetalert2'
-//import {db} from '../main'
-//import store from '../store/index'
+import store from '../store/index';
 import Card from '../components/Card'
     export default {
         name: 'Favoritos',
-        data(){
-          return{
-            //listaFav:[]
-          }
-        },
         components:{
           Card
         },
-        
-/*         mounted() {
-          store.state.listaFav=[]
-          db.collection(store.getters.traeUsuario).doc('favorito').collection('favorito').get().
-          then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-            let aux={
-                nombre:doc.data().nombre,
-                imagen: doc.data().imagen,
-                ingredientes: doc.data().ingredientes,
-                url: doc.data().url
-                }
-              store.state.listaFav.push(aux)            
-            })
-          });       
-        }, */
-/* 
-        methods:{
-          desmarcar(algo){
-            Swal.fire({
-              title: 'Estás quitando un favorito',
-              text: "Tendrás que buscarlo nuevamente, cuando lo quieras volver a preparar",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#dc3545',
-              cancelButtonColor: '#dc3545',
-              confirmButtonText: 'Sí, bórrate'
-            }).then((result) => {
-              if (result.value) {
-                this.listaFav.map((element,ind)=>{
-                  if(element.nombre==algo){
-                    this.listaFav.splice(ind,1)
-                  return store.dispatch('eliminarFavorito',algo)
-                  }
-                  })
-                Swal.fire({
-                  title:'Eliminada',
-                  text:'Has elimido la receta correctamente',
-                  icon:'success',
-                  confirmButtonColor: '#dc3545',
-                })            
-              }
-            })
-            
+        data(){
+          return{
+            busquedafav:''
           }
-        } */
+        },
+        computed:{
+          traerFav(){
+            return store.state.listaFav.filter((element)=>{
+              return element.nombre.toLowerCase().includes(this.busquedafav)
+            })
+          }
+        }
     }
 </script>
 

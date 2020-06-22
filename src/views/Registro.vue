@@ -15,6 +15,10 @@
           <b-form-input id="input-2" v-model="clave" required type="password"></b-form-input>
         </b-form-group>
 
+        <b-form-group id="input-group-2" label="Repite Contraseña" label-for="input-2">
+          <b-form-input id="input-2" v-model="repiteClave" required type="password"></b-form-input>
+        </b-form-group>
+
         <b-form-group id="input-group-2" label="¿Qué prefieres?" label-for="input-2">
             <b-form-select v-model="preferencia" :options="options"></b-form-select>
         </b-form-group>
@@ -35,6 +39,7 @@ import Swal from 'sweetalert2'
         nombre:'',
         preferencia:'',
         show: true,
+        repiteClave:'',
         options: [
           { value: 'meat', text: 'Carnes' },
           { value: 'fish', text: 'Pescados' },
@@ -51,7 +56,7 @@ import Swal from 'sweetalert2'
     methods: {
         registro(){
           const expReg= /\w+@\w+\.+[a-z]/
-          if (!this.correo || !this.clave || !this.preferencia || !this.nombre){
+          if (!this.correo || !this.clave || !this.repiteClave|| !this.preferencia || !this.nombre){
             Swal.fire({
               icon: 'error',
               title: 'Faltan Datos',
@@ -73,6 +78,13 @@ import Swal from 'sweetalert2'
             text: 'Debe tener como mínimo 6 caracteres',
             confirmButtonColor:'#dc3545'
           })
+          }else if(this.clave!=this.repiteClave){
+            Swal.fire({
+              icon: 'error',
+              title: 'Contraseña No Coincide',
+              text: 'Claves deben ser iguales',
+              confirmButtonColor:'#dc3545'
+            })
           }else{
             let user=[this.correo,this.clave,this.nombre,this.preferencia]
             this.$store.commit('registroUsuario',user)

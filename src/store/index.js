@@ -128,8 +128,7 @@ export default new Vuex.Store({
             text: 'Logueate para acceder',
             confirmButtonColor:'#dc3545'
           })
-        }
-     
+        }    
       });
     }, 
 
@@ -153,21 +152,6 @@ export default new Vuex.Store({
 
     mutandoInfo(state,info){
       state.datos = info
-/*       if(state.usuarioID!=''){
-        state.datos.forEach(element=>{
-          state.listaFav.find(variable => {
-            if (variable.nombre ==element.recipe.label){
-              element.fav=true
-            }else{
-              element.fav=false
-            }
-          })
-          console.log(state.datos.data)  
-          
-          // if(element.recipe.label==listaFav.nombre)
-          // element.fav=false
-        })
-      } */  
     },
 
     escribiendoFav(state,valor){
@@ -180,7 +164,15 @@ export default new Vuex.Store({
             uri: element.recipe.uri,
             url: element.recipe.url
             }
+            let aux={
+              nombre:element.recipe.label,
+              imagen: element.recipe.image,
+              ingredientes: element.recipe.ingredientLines,
+              url: element.recipe.url
+              }
         db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(receta.nombre).set(receta).then(()=>{
+          state.listaFav.push(aux)
+        }).then(()=>{
           Swal.fire({
             icon: 'success',
             title: 'Favorito Agregado',
@@ -188,9 +180,9 @@ export default new Vuex.Store({
             confirmButtonColor:'#dc3545'
           })
         })
-          }
-        })
-      },
+      }
+    })
+  },
 
     eliminandoFav(state,valor){
       db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(valor).delete().then(function() {
@@ -211,7 +203,6 @@ export default new Vuex.Store({
         let usuario=firebase.auth().currentUser.uid
         let refBD = db.collection(usuario).doc("datos")
         let credential=firebase.auth.EmailAuthProvider.credential(state.correo,state.clave)
-
         //ACTUALIZACIÓN EN DOCUMENTO BD 
         if(valor[1]!=state.nombre||valor[2]!=state.preferencia){
           refBD.update({
@@ -224,7 +215,6 @@ export default new Vuex.Store({
             state.cambios=false
             });
         }
-
           //ACTUALIZACIÓN EN AUTENTICACION
           user.reauthenticateWithCredential(credential).then(()=>{  
           if(valor[0]!=state.correo){
@@ -272,6 +262,7 @@ export default new Vuex.Store({
           })
         }
     }, //fin actualización
+
     restablecer(state,valor){
       firebase.auth().sendPasswordResetEmail(valor).then(function() {
         Swal.fire({
@@ -290,7 +281,6 @@ export default new Vuex.Store({
           })
         }
       });
-
     } 
   },//fin mutations
 
@@ -317,7 +307,5 @@ export default new Vuex.Store({
     recuperaClave(context,info){
       context.commit('restablecer',info)
     }
-
   }
-
 })

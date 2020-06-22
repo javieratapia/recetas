@@ -2,29 +2,13 @@
     <div>
       <b-form class="mt-5 container" v-if="show">
         <h1 class="my-4">Ingresa a tu Cuenta</h1>
-        <b-form-group
-          id="input-group-1"
-          label="Correo Electrónico:"
-          label-for="input-1"
-          
-        >
-          <b-form-input
-            id="input-1"
-            v-model="correo"
-            type="email"
-            required
-          
-          ></b-form-input>
+
+        <b-form-group id="input-group-1" label="Correo Electrónico:" label-for="input-1">
+          <b-form-input id="input-1" v-model="correo" type="email" required></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="Contraseña" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            v-model="clave"
-            required
-          
-            type="password"
-          ></b-form-input>
+          <b-form-input id="input-2" v-model="clave" required type="password"></b-form-input>
         </b-form-group>
 
         <b-button type="submit" variant="danger" class="mb-3" @click.prevent='loginUser'>Entrar</b-button>
@@ -47,11 +31,11 @@ import Swal from 'sweetalert2'
       },
     
     methods: {
+      loginUser(){
+        let user=[this.correo,this.clave]
+        store.commit('login',user)
+      },
 
-        loginUser(){
-          let user=[this.correo,this.clave]
-          store.commit('login',user)
-     },
       recuperar(){
         if(this.correo!=''){
           store.dispatch('recuperaClave',this.correo)
@@ -61,12 +45,10 @@ import Swal from 'sweetalert2'
           title: 'Ingresa tu Correo',
           text: 'Ingresa un correo válido para restablecer tu contraseña',
           confirmButtonColor:'#dc3545'
-        })
-        }
-          
+          })
+        }         
       }
-      }
-    
+    }
   }
 </script>
 
@@ -81,5 +63,4 @@ import Swal from 'sweetalert2'
 a{
   color:#2c3e50
 }
-
 </style>

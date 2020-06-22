@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Navegador />
-
       <router-view/>
-
   </div>
 </template>
 
