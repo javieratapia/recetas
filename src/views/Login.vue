@@ -1,8 +1,11 @@
   <template>
     <div>
+      <div>
+        <b-jumbotron class="jumbo" header="Login">
+          <h3 class="negro">Ingresa a tu Cuenta</h3>
+        </b-jumbotron>
+      </div>      
       <b-form class="mt-5 container" v-if="show">
-        <h1 class="my-4">Ingresa a tu Cuenta</h1>
-
         <b-form-group id="input-group-1" label="Correo Electrónico:" label-for="input-1">
           <b-form-input id="input-1" v-model="correo" type="email" required></b-form-input>
         </b-form-group>
@@ -53,14 +56,17 @@ import Swal from 'sweetalert2'
 </script>
 
 <style scoped lang="scss">
-.mt-5{
-  margin-top: 6rem!important;
-}
+
 .form-control{
   display: inline-block!important;
   width: 35%!important;
   }
 a{
   color:#2c3e50
+}
+.jumbo {
+  background-image: url("../assets/img/ingredientes.jpg");
+  background-size:cover;
+  color:white;
 }
 </style>

@@ -24,7 +24,10 @@
         <!--MODAL CONTENEDOR RECETA-->
         <b-modal :title="nombre" :id="uri" okVariant= 'danger' okTitle= 'Listo' ok-only>
             <p class="my-4" v-for="(variable,index) in ingredientes" :key="index">{{variable}}</p>
-            <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="url">Receta Original</b-button>
+            <b-row align-h="end"  class="my-3 mr-2">
+                <a href="http://developer.edamam.com"  target="_blank"><img class="tamano" src="../assets/img/edamam_transparent.png" alt=""></a>
+            </b-row>
+            <b-button class="mt-3" variant="outline-danger" target="_blank" block :href="url">Receta Original</b-button>        
         </b-modal>     
     </div>
 </template>
@@ -105,5 +108,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.tamano{
+    width: 100px;
+}
 </style>

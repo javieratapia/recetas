@@ -1,8 +1,10 @@
   <template>
     <div>
-      <b-form class="mt-5 container" v-if="show">
-        <h1 class="mb-4">Registrate</h1>
-
+      <div>
+        <b-jumbotron class="jumbo" header="Registrate">
+        </b-jumbotron>
+      </div>      
+      <b-form class="my-5 container" v-if="show">
         <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
           <b-form-input id="input-1" v-model="nombre" type="text" required></b-form-input>
         </b-form-group>
@@ -96,15 +98,17 @@ import Swal from 'sweetalert2'
 </script>
 
 <style scoped lang="scss">
-.mt-5{
-  margin-top: 6rem!important;
-}
 .form-control{
   display: inline-block!important;
   width: 35%!important;
   } 
 .custom-select{
     width: 35%!important;
+}
+.jumbo {
+  background-image: url("../assets/img/plato.jpg");
+  background-size:cover;
+  color:white;
 }
 
 </style>

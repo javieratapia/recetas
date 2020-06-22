@@ -1,8 +1,11 @@
   <template>
     <div>
+      <div>
+        <b-jumbotron class="jumbo" header="Perfil">
+          <h3>Aquí están tus datos de Chef</h3>
+        </b-jumbotron>
+      </div>
       <b-form class="mt-5 container" v-if="show">
-        <h1 class="mb-4">Perfil</h1>
-
         <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
           <b-form-input id="input-1" v-model='traePerfil[1]' type="text" required></b-form-input>
         </b-form-group>
@@ -59,15 +62,18 @@ import store from '../store/index'
 </script>
 
 <style scoped lang="scss">
-.mt-5{
-  margin-top: 6rem!important;
-}
 .form-control{
   display: inline-block!important;
   width: 35%!important;
   } 
 .custom-select{
     width: 35%!important;
+}
+.jumbo {
+  background-image: url("../assets/img/ingredientes.jpg");
+  background-size:cover;
+  background-position: center;
+  color:white;
 }
 
 </style>

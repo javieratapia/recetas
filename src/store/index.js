@@ -35,6 +35,9 @@ export default new Vuex.Store({
     infoPerfil(state){
       let perfil=[state.correo,state.nombre,state.preferencia]
       return perfil
+    },
+    largoFav(state){
+      return state.nombresFav.length
     }
     
   },

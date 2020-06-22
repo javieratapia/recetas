@@ -1,20 +1,14 @@
 <template>
   <div>
+
     <b-navbar toggleable="lg" type="dark" variant="danger" fixed="top">
       
       <b-navbar-brand href="#">
         <img src="../assets/img/gorritob.png" alt="" class="logo">
         El Recetario Maestro</b-navbar-brand>
-
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav>
-
-      
-
-         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-
         <b-navbar-nav>
           <router-link to="/" class="routerLink nav-link">Home</router-link>
         </b-navbar-nav>

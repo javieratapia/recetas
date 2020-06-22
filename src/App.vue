@@ -14,7 +14,7 @@ export default {
     conexionApi()
    },
   components: {
-    Navegador
+    Navegador,
   }, 
 }
 </script>
