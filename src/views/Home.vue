@@ -84,10 +84,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.card-img-top{
-  height: 315px;
-  object-fit: cover;
-}
+
 .jumbo {
   background-image: url("../assets/img/vegetales.jpg");
   background-position: center top;

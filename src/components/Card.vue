@@ -103,7 +103,9 @@
 </script>
 
 <style lang="scss" scoped>
-.tamano{
-    width: 100px;
+
+.card-img-top{
+  height: 315px;
+  object-fit: cover;
 }
 </style>
