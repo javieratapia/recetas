@@ -35,11 +35,7 @@ export default new Vuex.Store({
     infoPerfil(state){
       let perfil=[state.correo,state.nombre,state.preferencia]
       return perfil
-    },
-    largoFav(state){
-      return state.nombresFav.length
-    }
-    
+    },    
   },
   
   mutations: {
@@ -50,6 +46,7 @@ export default new Vuex.Store({
         state.usuarioID=respuesta.user.uid
         state.correo=email
         state.clave=password
+        state.busqueda=''
         db.collection(state.usuarioID).get().then((querySnapshot)=>{
           querySnapshot.forEach((doc)=>{           
               state.nombre=doc.data().nombre
@@ -57,6 +54,7 @@ export default new Vuex.Store({
           })
         }).then(()=>{
           state.listaFav=[]
+          state.nombresFav=[]
           db.collection(state.usuarioID).doc('favorito').collection('favorito').get().
           then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -124,7 +122,7 @@ export default new Vuex.Store({
           router.push('/login')
         }) 
       }).catch(function(error) {
-        if (error.code=='auth/email-already-exists'){
+        if (error.code=='auth/email-already-exists'||error.code=='auth/email-already-in-use'){
           Swal.fire({
             icon: 'error',
             title: 'Este correo ya existe',
@@ -175,6 +173,7 @@ export default new Vuex.Store({
               }
         db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(receta.nombre).set(receta).then(()=>{
           state.listaFav.push(aux)
+          state.nombresFav.push(receta.nombre)
         }).then(()=>{
           Swal.fire({
             icon: 'success',
@@ -188,9 +187,12 @@ export default new Vuex.Store({
   },
 
     eliminandoFav(state,valor){
+      state.nombresFav=[]
+      state.listaFav.forEach((element)=>{
+        state.nombresFav.push(element.nombre)
+      })
       db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(valor).delete().then(function() {
-      }).catch(function(error) {
-        console.error(error);
+      }).catch(function() {
       });
     },
 
@@ -232,9 +234,10 @@ export default new Vuex.Store({
                   state.cambios=false
                   })                  
           }).catch(function(error) {
+            console.log(error)
             state.cambios=false
             state.correo=valor[0]
-            if(error.code=='auth/email-already-in-use'){
+            if(error.code=='auth/email-already-in-use'||error.code=='auth/email-already-exists'){
               Swal.fire({
                 icon: 'error',
                 title: 'Correo Existente',

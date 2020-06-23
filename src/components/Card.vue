@@ -14,7 +14,7 @@
             <template v-slot:footer>           
                 <b-button href="#" variant="danger" v-b-modal="uri" class="mx-2">Ingredientes</b-button>
                 <!--BOTON VISTA HOME-->                   
-                <b-button v-if="fav" href="#" :variant="botonActivo||esFav?'outline-danger':'danger'" @click.once="marcar(nombre)" :disabled="botonActivo||esFav" class="mx-2">{{botonActivo||esFav? 
+                <b-button v-if="fav" href="#" :variant="botonActivo?'outline-danger':'danger'" @click.once="marcar(nombre)" :disabled="botonActivo" class="mx-2">{{botonActivo? 
                 'Guardada':'Favoritos'}}</b-button>                
 
             <!--BOTON VISTA FAVORITOS -->
@@ -46,17 +46,16 @@
         },
         data(){
             return{
-                esFav:false
+                //esFav:false
             }
         },
         methods: {
             marcar(element){
-                this.esFav=false
                 if (store.state.usuarioID!=''){
-                    this.esFav=true
+                    //this.esFav=true
                     return store.dispatch('enviarFavorito',element)
                 }else{
-                    this.esFav=false
+                    //this.esFav=false
                     Swal.fire({
                     icon: 'error',
                     title: 'Logueate',
@@ -66,7 +65,6 @@
                 }
             },
             desmarcar(algo){
-                console.log(algo)
                 Swal.fire({
                     title: 'Estás quitando un favorito',
                     text: "Tendrás que buscarlo nuevamente, cuando lo quieras volver a preparar",
@@ -82,7 +80,7 @@
                                 store.state.listaFav.splice(ind,1)
                                 return store.dispatch('eliminarFavorito',algo)
                             }
-                        })
+                        })                        
                         Swal.fire({
                         title:'Eliminada',
                         text:'Has elimido la receta correctamente',

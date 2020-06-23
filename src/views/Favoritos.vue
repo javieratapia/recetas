@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 ">
+  <div class="mt-5 mb-5">
     <div>
       <b-jumbotron class="jumbo" header="Tu Libro de Recetas">
         <h3 class="negro">Aquí están tus seleccionados como favorito</h3>

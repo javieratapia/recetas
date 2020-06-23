@@ -31,6 +31,9 @@ npm install
 ```
 Configurar carpeta config con tus datos para acceder a la API y a Firebase
 
+## La Aplicación puede ser encontrada en
+
+![](https://recetas-5efdb.web.app/)
 
 ### Compiles and hot-reloads for development
 ```

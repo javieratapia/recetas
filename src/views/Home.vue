@@ -20,8 +20,8 @@
             <b-row align-h="center">
               <b-col cols="8">
                 <b-input-group align-h="center">
-                  <b-form-input size="sm" v-model="busqueda" class="mr-sm-2" placeholder="Buscar Receta (sólo en inglés)"></b-form-input>
-                  <b-button size="sm" class="ml-2" variant="danger" @click.prevent="buscar()">Buscar</b-button>
+                  <b-form-input size="sm" v-model="busqueda" class="mr-sm-2" placeholder="Buscar Receta (sólo en inglés)" @keyup.enter.prevent="buscar()"></b-form-input>
+                  <b-button size="sm" class="ml-2" variant="danger" @click.prevent="buscar()" >Buscar</b-button>
                 </b-input-group>
               </b-col>
             </b-row>
@@ -67,6 +67,7 @@ export default {
     buscar(){
       if(this.busqueda!=''){
         store.dispatch('iniciaBuscador',this.busqueda)
+        this.busqueda=''
       }else{
         Swal.fire({
           icon: 'error',

@@ -26,6 +26,7 @@
 
 <script>
 import store from '../store/index'
+import Swal from 'sweetalert2'
   export default {
     name:'Perfil',
     data() {
@@ -54,8 +55,18 @@ import store from '../store/index'
        }
     },//fin computed
     methods:{
-      actualizar(element){        
-          store.dispatch('enviarActualizacion',element)        
+      actualizar(element){   
+        const expReg= /\w+@\w+\.+[a-z]/
+        if(!expReg.test(this.traePerfil[0])){
+            Swal.fire({
+              icon: 'error',
+              title: 'Error en correo',
+              text: 'Ingresa un correo electrónico válido',
+              confirmButtonColor:'#dc3545'
+            })
+          }else{
+            store.dispatch('enviarActualizacion',element)
+          }                       
       }
     }//fin methods
   }

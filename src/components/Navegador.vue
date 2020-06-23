@@ -22,14 +22,18 @@
           <router-link to="/login" class="routerLink nav-link">Login</router-link>
         </b-navbar-nav>
 
+        <b-navbar-nav v-if=!this.$store.state.visible>
+          <router-link to="/favoritos" class="routerLink nav-link">Favoritos</router-link>
+        </b-navbar-nav>
+
       <!-- SOLO SI EL USUARIO ESTÁ REGISTRADO -->
           <b-nav-item-dropdown right v-if=!this.$store.state.visible>
 
             <template v-slot:button-content>
-              <em>Bienvenido</em>
+              <em>Bienvenid@</em>
             </template>
             
-            <router-link to="/favoritos" class="routerLink dropdown-item">Favoritos</router-link>
+            
             <router-link to="/perfil" class="routerLink dropdown-item">Perfil</router-link>
             <b-dropdown-item @click="logout">Desconectarse</b-dropdown-item>
           </b-nav-item-dropdown>
