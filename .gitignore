@@ -3,6 +3,9 @@ node_modules
 /dist
 src/config/firebaseConfig.js
 src/config/accesoApi.js
+.firebaserc
+firebase.json
+.firebase/hosting.ZGlzdA.cache
 
 # local env files
 .env.local
@@ -24,6 +27,4 @@ pnpm-debug.log*
 *.sw?
 
 
-.firebaserc
-firebase.json
-.firebase/hosting.ZGlzdA.cache
+

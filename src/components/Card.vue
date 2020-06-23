@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card
-            :img-src="imagen" no-body img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 mx-4" footer-bg-variant="white">
+            :img-src="imagen" no-body img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 mx-4 my-3" footer-bg-variant="white">
             <template v-slot:header>
                 <div v-if="nombre.length<=30">                
                     {{nombre}}                
@@ -14,7 +14,7 @@
             <template v-slot:footer>           
                 <b-button href="#" variant="danger" v-b-modal="uri" class="mx-2">Ingredientes</b-button>
                 <!--BOTON VISTA HOME-->                   
-                <b-button v-if="fav" href="#" :variant="botonActivo?'outline-danger':'danger'" @click.once="marcar(nombre)" :disabled="botonActivo" class="mx-2">{{botonActivo? 
+                <b-button v-if="fav" href="#" :variant="botonActivo?'outline-danger':'danger'" @click="marcar(uri)" :disabled="botonActivo" class="mx-2">{{botonActivo? 
                 'Guardada':'Favoritos'}}</b-button>                
 
             <!--BOTON VISTA FAVORITOS -->
@@ -46,16 +46,13 @@
         },
         data(){
             return{
-                //esFav:false
             }
         },
         methods: {
             marcar(element){
                 if (store.state.usuarioID!=''){
-                    //this.esFav=true
                     return store.dispatch('enviarFavorito',element)
                 }else{
-                    //this.esFav=false
                     Swal.fire({
                     icon: 'error',
                     title: 'Logueate',
@@ -76,7 +73,7 @@
                 }).then((result) => {
                     if (result.value) {
                         store.state.listaFav.map((element,ind)=>{
-                            if(element.nombre==algo){
+                            if(element.uri==algo){
                                 store.state.listaFav.splice(ind,1)
                                 return store.dispatch('eliminarFavorito',algo)
                             }
@@ -96,7 +93,7 @@
         computed: {
             botonActivo(){
                 if(store.state.usuarioID!=''){
-                    return store.state.nombresFav.includes(this.nombre)
+                    return store.state.nombresFav.includes(this.uri)
                 }else{
                     return false
                 }                

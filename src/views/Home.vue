@@ -30,7 +30,7 @@
         <b-container class="bv-example-row">
           <b-row align-h="center">
             <b-card-group deck v-for="(item,index) in recetas" :key="index">
-              <card :imagen="item.recipe.image" :nombre="item.recipe.label" :uri="item.recipe.uri" :ingredientes="item.recipe.ingredientLines" :url="item.recipe.url" :fav="true"></card>
+              <card :imagen="item.recipe.image" :nombre="item.recipe.label" :uri="item.recipe.uri.substring(51,83)" :ingredientes="item.recipe.ingredientLines" :url="item.recipe.url" :fav="true"></card>
             </b-card-group>
           </b-row>
         </b-container>     
@@ -40,6 +40,7 @@
           <a href="http://developer.edamam.com"  target="_blank" align-v="end"><img src="../assets/img/edamam_transparent.png" alt="" class="my-3"></a>
       </b-row>
     </b-container>
+    <Pie />
   </div>
 </template>
 <script>
@@ -47,6 +48,7 @@
 import store from '../store/index'
 import Swal from 'sweetalert2'
 import Card from '../components/Card'
+import Pie from '../components/Pie'
 export default {
   name: 'Home',
   data(){
@@ -55,7 +57,8 @@ export default {
     }
   },
   components:{
-    Card
+    Card,
+    Pie
   },
   computed: {
     recetas(){

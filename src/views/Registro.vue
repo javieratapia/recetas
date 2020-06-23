@@ -27,12 +27,14 @@
 
         <b-button type="submit" variant="danger" @click.prevent='registro'>Entrar</b-button>
       </b-form>
+      <Pie />
     </div>
 </template>
 
 
 <script>
 import Swal from 'sweetalert2'
+import Pie from '../components/Pie'
   export default {
     data() {
       return {
@@ -54,7 +56,9 @@ import Swal from 'sweetalert2'
         ]
         }  
       },
-    
+    components:{
+      Pie
+    },
     methods: {
         registro(){
           const expReg= /\w+@\w+\.+[a-z]/

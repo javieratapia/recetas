@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <Navegador />
-      <router-view/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import {conexionApi} from './config/conexionApi'
 import Navegador from '@/components/Navegador.vue'
-
 export default {
     mounted() {
     conexionApi()
@@ -26,6 +25,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 3.5rem;
+;
+ 
 }
 
 #nav {

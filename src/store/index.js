@@ -62,10 +62,11 @@ export default new Vuex.Store({
                 nombre:doc.data().nombre,
                 imagen: doc.data().imagen,
                 ingredientes: doc.data().ingredientes,
-                url: doc.data().url
+                url: doc.data().url,
+                uri:doc.data().uri
                 }
               state.listaFav.push(aux)
-              state.nombresFav.push(aux.nombre)            
+              state.nombresFav.push(aux.uri)            
             })
           }); 
         }).then(()=>{
@@ -157,23 +158,17 @@ export default new Vuex.Store({
 
     escribiendoFav(state,valor){
       state.datos.find(element=>{
-        if(valor==element.recipe.label){
+        if(valor==element.recipe.uri.substring(51,83)){
           let receta ={
             nombre: element.recipe.label,
             ingredientes: element.recipe.ingredientLines,
             imagen: element.recipe.image,
-            uri: element.recipe.uri,
-            url: element.recipe.url
+            uri: element.recipe.uri.substring(51,83),
+            url: element.recipe.url,
             }
-            let aux={
-              nombre:element.recipe.label,
-              imagen: element.recipe.image,
-              ingredientes: element.recipe.ingredientLines,
-              url: element.recipe.url
-              }
-        db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(receta.nombre).set(receta).then(()=>{
-          state.listaFav.push(aux)
-          state.nombresFav.push(receta.nombre)
+        db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(receta.uri).set(receta).then(()=>{
+          state.listaFav.push(receta)
+          state.nombresFav.push(receta.uri)
         }).then(()=>{
           Swal.fire({
             icon: 'success',
@@ -189,7 +184,7 @@ export default new Vuex.Store({
     eliminandoFav(state,valor){
       state.nombresFav=[]
       state.listaFav.forEach((element)=>{
-        state.nombresFav.push(element.nombre)
+        state.nombresFav.push(element.uri)
       })
       db.collection(state.usuarioID).doc('favorito').collection('favorito').doc(valor).delete().then(function() {
       }).catch(function() {

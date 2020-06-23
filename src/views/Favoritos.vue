@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 mb-5">
+  <div class="mt-5">
     <div>
       <b-jumbotron class="jumbo" header="Tu Libro de Recetas">
         <h3 class="negro">Aquí están tus seleccionados como favorito</h3>
@@ -18,20 +18,27 @@
     <b-container class="bv-example-row">
       <b-row  align-h="center"> 
         <b-card-group deck v-for="(item,index) in traerFav" :key="index">
-          <card :imagen="item.imagen" :nombre="item.nombre" :uri="item.nombre" :ingredientes="item.ingredientes" :url="item.url" :fav="false" ></card>                   
+          <card :imagen="item.imagen" :nombre="item.nombre" :uri="item.uri" :ingredientes="item.ingredientes" :url="item.url" :fav="false" ></card>                   
         </b-card-group>
       </b-row>
     </b-container>
+    <Pie v-if="hayFav" />
+    <PieFixed v-else />
+
   </div>
 </template>
 
 <script>
 import store from '../store/index';
 import Card from '../components/Card'
+import Pie from '../components/Pie'
+import PieFixed from '../components/PieFixed'
     export default {
         name: 'Favoritos',
         components:{
-          Card
+          Card,
+          Pie,
+          PieFixed
         },
         data(){
           return{
@@ -43,7 +50,16 @@ import Card from '../components/Card'
             return store.state.listaFav.filter((element)=>{
               return element.nombre.toLowerCase().includes(this.busquedafav)
             })
-          }
+          },
+        hayFav(){
+            let aux=''
+            if (store.state.nombresFav.length==0){
+              aux=false
+            }else{
+              aux=true
+            }
+            return aux
+          } 
         }
     }
 </script>

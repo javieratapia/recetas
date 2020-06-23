@@ -5,7 +5,7 @@
           <h3>Aquí están tus datos de Chef</h3>
         </b-jumbotron>
       </div>
-      <b-form class="mt-5 container" v-if="show">
+      <b-form class="mt-4 container" v-if="show">
         <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
           <b-form-input id="input-1" v-model='traePerfil[1]' type="text" required></b-form-input>
         </b-form-group>
@@ -20,12 +20,14 @@
 
         <b-button type="submit" variant="danger" @click.prevent='actualizar(traePerfil)'>Actualizar</b-button>
       </b-form>
+      <PieFixed />
     </div>
 </template>
 
 
 <script>
 import store from '../store/index'
+import PieFixed from '../components/PieFixed'
 import Swal from 'sweetalert2'
   export default {
     name:'Perfil',
@@ -48,7 +50,9 @@ import Swal from 'sweetalert2'
         ]
         }  
       },
-    
+      components:{
+        PieFixed
+      },
     computed: {
        traePerfil(){
          return store.getters.infoPerfil

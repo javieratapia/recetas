@@ -18,12 +18,14 @@
       </b-form>
 
       <a @click.prevent="recuperar()" href="">Olvidé Contraseña</a>
+      <PieFixed />
     </div>
 </template>
 
 <script>
 import store from '../store/index'
 import Swal from 'sweetalert2'
+import PieFixed from '../components/PieFixed'
   export default {
     data() {
       return {
@@ -32,7 +34,9 @@ import Swal from 'sweetalert2'
         show: true,
         }  
       },
-    
+    components:{
+      PieFixed
+    },
     methods: {
       loginUser(){
         let user=[this.correo,this.clave]
@@ -69,4 +73,5 @@ a{
   background-size:cover;
   color:white;
 }
+
 </style>

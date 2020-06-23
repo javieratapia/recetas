@@ -5,12 +5,17 @@
                 <p>El Recetario Maestro</p>                
             </b-jumbotron>
         </div>
+        <PieFixed />
     </div>
 </template>
 
 <script>
+import PieFixed from '../components/PieFixed'
     export default {
         name: 'NotFound',
+        components:{
+            PieFixed
+        }
     }
 </script>
 
