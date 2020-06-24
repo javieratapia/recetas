@@ -6,7 +6,7 @@
       </b-jumbotron>
     </div>
 
-    <b-container class="my-5">
+    <b-container class="my-5" v-if="hayFav">
       <b-row align-h="center">
         <b-col cols="8">
           <b-input-group align-h="center">
@@ -70,5 +70,7 @@ import PieFixed from '../components/PieFixed'
   background-position: center top;
   color:white;
 }
-
+.tamano{
+    width: 250px;
+}
 </style>

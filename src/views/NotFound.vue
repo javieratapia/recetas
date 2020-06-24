@@ -26,5 +26,8 @@ import PieFixed from '../components/PieFixed'
   background-size: cover;
   color:white;
 }
+.tamano{
+    width: 300px;
+}
 
 </style>

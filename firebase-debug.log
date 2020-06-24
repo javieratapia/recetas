@@ -1,0 +1,57 @@
+[debug] [2020-06-24T20:56:31.075Z] ----------------------------------------------------------------------
+[debug] [2020-06-24T20:56:31.076Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Javi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2020-06-24T20:56:31.077Z] CLI Version:   8.4.3
+[debug] [2020-06-24T20:56:31.077Z] Platform:      win32
+[debug] [2020-06-24T20:56:31.077Z] Node Version:  v12.14.1
+[debug] [2020-06-24T20:56:31.078Z] Time:          Wed Jun 24 2020 16:56:31 GMT-0400 (GMT-04:00)
+[debug] [2020-06-24T20:56:31.078Z] ----------------------------------------------------------------------
+[debug] [2020-06-24T20:56:31.079Z] 
+[debug] [2020-06-24T20:56:31.087Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-24T20:56:31.088Z] > authorizing via signed-in user
+[debug] [2020-06-24T20:56:31.088Z] [iam] checking project recetas-5efdb for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-06-24T20:56:31.091Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/recetas-5efdb:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-06-24T20:56:32.139Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 24 Jun 2020 20:56:31 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=917","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-06-24T20:56:32.145Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/recetas-5efdb  
+ 
+[debug] [2020-06-24T20:56:32.606Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 24 Jun 2020 20:56:32 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'recetas-5efdb'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-06-24T20:56:32.615Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/recetas-5efdb/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-06-24T20:56:53.653Z] Error: connect ETIMEDOUT 172.217.192.95:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1134:16)
+[error] 
+[error] Error: Server Error. connect ETIMEDOUT 172.217.192.95:443
+[debug] [2020-06-24T20:57:13.709Z] ----------------------------------------------------------------------
+[debug] [2020-06-24T20:57:13.711Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Javi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2020-06-24T20:57:13.711Z] CLI Version:   8.4.3
+[debug] [2020-06-24T20:57:13.711Z] Platform:      win32
+[debug] [2020-06-24T20:57:13.711Z] Node Version:  v12.14.1
+[debug] [2020-06-24T20:57:13.713Z] Time:          Wed Jun 24 2020 16:57:13 GMT-0400 (GMT-04:00)
+[debug] [2020-06-24T20:57:13.713Z] ----------------------------------------------------------------------
+[debug] [2020-06-24T20:57:13.713Z] 
+[debug] [2020-06-24T20:57:13.721Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-24T20:57:13.722Z] > authorizing via signed-in user
+[debug] [2020-06-24T20:57:13.722Z] [iam] checking project recetas-5efdb for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-06-24T20:57:13.726Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/recetas-5efdb:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-06-24T20:57:14.750Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 24 Jun 2020 20:57:14 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=928","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-06-24T20:57:14.754Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/recetas-5efdb  
+ 
+[debug] [2020-06-24T20:57:15.089Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 24 Jun 2020 20:57:14 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'recetas-5efdb'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-06-24T20:57:15.103Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/recetas-5efdb/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-06-24T20:57:16.765Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 24 Jun 2020 20:57:16 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[recetas-5efdb]: beginning deploy... 
+[info] i  hosting[recetas-5efdb]: found 28 files in dist 
+[debug] [2020-06-24T20:57:17.982Z] [hosting] hash cache [ZGlzdA] stored for 28 files
+[debug] [2020-06-24T20:57:17.982Z] [hosting][hash queue][FINAL] {"max":1035,"min":19,"avg":74.85714285714286,"active":0,"complete":28,"success":28,"errored":0,"retried":0,"total":28,"elapsed":1063}
+[debug] [2020-06-24T20:57:17.982Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/recetas-5efdb/versions/43f6cd9a016566a5:populateFiles  
+ <request body omitted>
