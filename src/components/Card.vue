@@ -1,7 +1,9 @@
 <template>
     <div>
+        <!--CARD CONTENEDOR RECETA-->
         <b-card
             :img-src="imagen" no-body img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 mx-4 my-3" footer-bg-variant="white">
+            <!--REDUCCIÓN CARACTERES-->
             <template v-slot:header>
                 <div v-if="nombre.length<=30">                
                     {{nombre}}                

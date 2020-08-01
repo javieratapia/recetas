@@ -1,11 +1,12 @@
 <template>
   <div class="mt-5">
     <div>
+      <!--HEADER-->
       <b-jumbotron class="jumbo" header="Tu Libro de Recetas">
         <h3 class="negro">Aquí están tus seleccionados como favorito</h3>
       </b-jumbotron>
     </div>
-
+    <!--BUSCADOR-->
     <b-container class="my-5" v-if="hayFav">
       <b-row align-h="center">
         <b-col cols="8">
@@ -15,6 +16,11 @@
         </b-col>
       </b-row>
     </b-container>
+    <!--ALERTA SIN FAVORITOS-->
+    <b-container class="my-5" v-else>
+      <b-alert show variant="danger">Agrega un favorito para que aparezca en ésta página</b-alert>
+    </b-container>
+    <!--DESPLIEGUE DE TARJETAS-->
     <b-container class="bv-example-row">
       <b-row  align-h="center"> 
         <b-card-group deck v-for="(item,index) in traerFav" :key="index">
@@ -22,6 +28,7 @@
         </b-card-group>
       </b-row>
     </b-container>
+    <!--FOOTER-->
     <Pie v-if="hayFav" />
     <PieFixed v-else />
 

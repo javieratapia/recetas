@@ -1,10 +1,12 @@
   <template>
     <div>
+      <!--HEADER-->
       <div>
         <b-jumbotron class="jumbo" header="Login">
           <h3 class="negro">Ingresa a tu Cuenta</h3>
         </b-jumbotron>
-      </div>      
+      </div> 
+      <!--FORMULARIO LOGIN-->     
       <b-form class="mt-5 container" v-if="show">
         <b-form-group id="input-group-1" label="Correo Electrónico:" label-for="input-1">
           <b-form-input id="input-1" v-model="correo" type="email" required></b-form-input>
@@ -18,6 +20,7 @@
       </b-form>
 
       <a @click.prevent="recuperar()" href="">Olvidé Contraseña</a>
+      <!--FOOTER-->
       <PieFixed />
     </div>
 </template>

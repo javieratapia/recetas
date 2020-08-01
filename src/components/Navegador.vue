@@ -1,8 +1,6 @@
 <template>
   <div>
-
-    <b-navbar toggleable="lg" type="dark" variant="danger" fixed="top">
-      
+    <b-navbar toggleable="lg" type="dark" variant="danger" fixed="top">      
       <b-navbar-brand href="#">
         <img src="../assets/img/gorritob.png" alt="" class="logo">
         El Recetario Maestro</b-navbar-brand>

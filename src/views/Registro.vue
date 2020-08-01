@@ -1,9 +1,11 @@
   <template>
     <div>
+      <!--HEADER-->
       <div>
         <b-jumbotron class="jumbo" header="Registrate">
         </b-jumbotron>
-      </div>      
+      </div>
+      <!--FORMULARIO DE REGISTRO-->      
       <b-form class="my-5 container" v-if="show">
         <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
           <b-form-input id="input-1" v-model="nombre" type="text" required></b-form-input>
@@ -27,6 +29,7 @@
 
         <b-button type="submit" variant="danger" @click.prevent='registro'>Entrar</b-button>
       </b-form>
+      <!--FOOTER-->
       <Pie />
     </div>
 </template>

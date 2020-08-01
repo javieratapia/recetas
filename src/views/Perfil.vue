@@ -1,10 +1,12 @@
   <template>
     <div>
+      <!--HEADER-->
       <div>
         <b-jumbotron class="jumbo" header="Perfil">
           <h3>Aquí están tus datos de Chef</h3>
         </b-jumbotron>
       </div>
+      <!--PERFIL USUARIO-->
       <b-form class="mt-4 container" v-if="show">
         <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
           <b-form-input id="input-1" v-model='traePerfil[1]' type="text" required></b-form-input>
@@ -20,6 +22,7 @@
 
         <b-button type="submit" variant="danger" @click.prevent='actualizar(traePerfil)'>Actualizar</b-button>
       </b-form>
+      <!--FOOTER-->
       <PieFixed />
     </div>
 </template>

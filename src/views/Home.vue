@@ -35,11 +35,13 @@
           </b-row>
         </b-container>     
     </b-container>
+    <!--AUTORIA API-->
     <b-container class="bv-example-row" fluid>
       <b-row align-h="end" class="mr-3">
           <a href="http://developer.edamam.com"  target="_blank" align-v="end"><img src="../assets/img/edamam_transparent.png" alt="" class="my-3"></a>
       </b-row>
     </b-container>
+    <!--FOOTER-->
     <Pie />
   </div>
 </template>
